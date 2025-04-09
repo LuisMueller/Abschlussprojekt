@@ -13,15 +13,19 @@ CREATE TABLE Vehicles (
 );
 
 -- Tabelle für Buchungen
-CREATE TABLE Bookings (
-    BookingID SERIAL PRIMARY KEY,
-    UserID INT NOT NULL,
-    VehicleID INT NOT NULL,
+CREATE TABLE buchung (
+    Booking_ID SERIAL PRIMARY KEY,
     BookingStart TIMESTAMP NOT NULL,
     BookingEnd TIMESTAMP NOT NULL,
-    Passengers INT NOT NULL,
-    Destination VARCHAR(200) NOT NULL,
-    Reason TEXT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID) ON DELETE CASCADE
+    Passanger INT CHECK (Passanger > 0),
+    Destination VARCHAR(100),
+    Reason VARCHAR(200),
+
+    User_ID INT,
+    Vehicles_ID INT,
+
+    CONSTRAINT fk_user FOREIGN KEY (User_ID) REFERENCES users(User_ID) ON DELETE CASCADE,
+    CONSTRAINT fk_vehicle FOREIGN KEY (Vehicles_ID) REFERENCES vehicles(Vehicle_ID) ON DELETE SET NULL,
+
+    CHECK (BookingEnd > BookingStart)
 );
