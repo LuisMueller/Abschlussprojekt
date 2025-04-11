@@ -16,7 +16,8 @@ SELECT
     v.Model AS Fahrzeug,
     b.BookingStart,
     b.BookingEnd,
-    b.Destination
+    b.Destination,
+    b.reason as grund
 FROM buchung b
 JOIN users u ON b.User_ID = u.User_ID
 JOIN vehicles v ON b.Vehicles_ID = v.Vehicle_ID;

@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Environment config
+*.env
+
+# IDEs
+.pycharm/
+.idea/
+
+# OS
+.DS_Store
