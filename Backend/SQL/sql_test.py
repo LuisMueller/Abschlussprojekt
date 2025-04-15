@@ -4,7 +4,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 #env-Datei laden
-dotenv_path = os.path.join(os.path.dirname(__file__), "../properties.env")
+dotenv_path = os.path.join(os.path.dirname(__file__), "../../properties.env")
 load_dotenv(dotenv_path)
 load_dotenv("properties.env")
 

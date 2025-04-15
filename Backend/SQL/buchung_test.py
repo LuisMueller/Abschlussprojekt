@@ -2,7 +2,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), "../properties.env")
+dotenv_path = os.path.join(os.path.dirname(__file__), "../../properties.env")
 load_dotenv(dotenv_path)
 load_dotenv("properties.env")
 
@@ -81,9 +81,9 @@ def buche_fahrzeug(user_id, vehicle_id, start, end):
 if __name__ == "__main__":
     # Beispielwerte zum Testen
     user_id = 1
-    vehicle_id = 1
+    vehicle_id = 3
     start = "2025-04-10 09:00:00"
     end = "2025-04-10 13:00:00"
 
     result = buche_fahrzeug(user_id, vehicle_id, start, end)
-    print(result)  # <- Das hier fehlt dir wahrscheinlich
+    print(result)
