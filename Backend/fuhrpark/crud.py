@@ -2,9 +2,13 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
+dotenv_path = os.path.join(os.path.dirname(__file__), "../../properties.env")
+load_dotenv(dotenv_path)
 load_dotenv("properties.env")
 
 def buche_fahrzeug(user_id, vehicle_id, start, end):
+    if start >= end:
+        return Flase, "Startzeitpunkt muss vor dem Endzeitpunkt liegen"
     conn = None
     cur = None
 
@@ -19,44 +23,38 @@ def buche_fahrzeug(user_id, vehicle_id, start, end):
         )
         cur = conn.cursor()
 
-        # 1. Fahrzeugstatus prüfen
-        cur.execute("SELECT VehicleStatus FROM vehicles WHERE Vehicle_ID = %s;", (vehicle_id,))
-        result = cur.fetchone()
-
-        if not result:
-            return False, "Fahrzeug-ID nicht gefunden."
-
-        if result[0] != "verfügbar":
-            return False, f"Fahrzeug ist aktuell nicht verfügbar. Status: {result[0]}"
-
-        # 2. Zeitüberschneidung prüfen
+        # 1. Zeitüberschneidung prüfen
         cur.execute("""
-            SELECT * FROM buchung
-            WHERE Vehicles_ID = %s
-              AND BookingStart < %s
-              AND BookingEnd > %s;
-        """, (vehicle_id, end, start))
+                    SELECT 1 FROM buchung
+                    WHERE vehicles_id = %s
+                      AND bookingstart < %s
+                      AND bookingend > %s;
+                """, (vehicle_id, end, start))
         conflicts = cur.fetchall()
 
         if conflicts:
             return False, "Fahrzeug ist im gewünschten Zeitraum bereits gebucht."
 
+        # 2. Fahrzeug existiert? (optional, kannst du lassen)
+        cur.execute("SELECT vehicle_id FROM vehicles WHERE vehicle_id = %s;", (vehicle_id,))
+        if not cur.fetchone():
+            return False, "Fahrzeug-ID nicht gefunden."
+
         # 3. Buchung einfügen
         cur.execute("""
-            INSERT INTO buchung (BookingStart, BookingEnd, Passanger, Destination, Reason, User_ID, Vehicles_ID)
-            VALUES (%s, %s, %s, %s, %s, %s, %s);
-        """, (
+                    INSERT INTO buchung (BookingStart, BookingEnd, Passanger, Destination, Reason, User_ID, Vehicles_ID)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s);
+                """, (
             start,
             end,
-            1,                  # Standard: 1 Passagier
-            "Ziel wird später ergänzt",  # Platzhalter
-            "Grund wird später ergänzt", # Platzhalter
+            1,  # Standard: 1 Passagier
+            "Ziel wird später ergänzt",
+            "Grund wird später ergänzt",
             user_id,
             vehicle_id
         ))
 
-        # 4. Fahrzeugstatus updaten
-        cur.execute("UPDATE vehicles SET VehicleStatus = 'gebucht' WHERE Vehicle_ID = %s;", (vehicle_id,))
+        # 4. Kein Status-Update mehr nötig
         conn.commit()
 
         return True, "Buchung erfolgreich eingetragen."
