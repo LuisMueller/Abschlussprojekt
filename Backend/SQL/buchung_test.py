@@ -51,7 +51,7 @@ def buche_fahrzeug(user_id, vehicle_id, start, end):
 
         # Schritt 3: Buchung einfügen
         cur.execute("""
-            INSERT INTO buchung (BookingStart, BookingEnd, Passanger, Destination, Reason, User_ID, Vehicles_ID)
+            INSERT INTO buchung (BookingStart, BookingEnd, Passenger, Destination, Reason, User_ID, Vehicles_ID)
             VALUES (%s, %s, %s, %s, %s, %s, %s);
         """, (
             start,

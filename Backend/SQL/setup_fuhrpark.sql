@@ -23,10 +23,10 @@ CREATE TABLE vehicles (
 
 -- ========== 3. BOOKINGS ==========
 CREATE TABLE bookings (
-    Booking_ID SERIAL PRIMARY KEY,
+    Booking_ID SERIAL PRIMARY KEY NOT NULL,
     BookingStart TIMESTAMP NOT NULL,
     BookingEnd TIMESTAMP NOT NULL,
-    Passanger INT CHECK (Passanger > 0),
+    Passenger INT CHECK (Passenger > 0),
     Destination VARCHAR(100),
     Reason VARCHAR(200),
 
@@ -54,7 +54,7 @@ VALUES
     (''Mercedes V-Klasse'', ''Berlin'', 7, ''verfügbar'');
 
 -- ========== INSERT INTO BOOKINGS ==========
-INSERT INTO buchung (BookingStart, BookingEnd, Passanger, Destination, Reason, User_ID, Vehicles_ID)
+INSERT INTO buchung (BookingStart, BookingEnd, Passenger, Destination, Reason, User_ID, Vehicles_ID)
 VALUES (
   '2025-04-09 08:00:00',
   '2025-04-09 18:00:00',

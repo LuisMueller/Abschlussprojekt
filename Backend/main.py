@@ -6,6 +6,7 @@ import uvicorn
 from enum import Enum
 from fuhrpark.routes import buchung
 from fuhrpark.schemas import BuchungRequest, BuchungResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
@@ -15,6 +16,13 @@ app = FastAPI(
 )
 app.include_router(buchung.router)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
@@ -24,5 +32,5 @@ async def root():
 
 
 #nur bei lokales starten
-#if __name__ == "__main__":
-#    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)

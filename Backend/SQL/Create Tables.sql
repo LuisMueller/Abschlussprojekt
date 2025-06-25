@@ -17,7 +17,7 @@ CREATE TABLE buchung (
     Booking_ID SERIAL PRIMARY KEY,
     BookingStart TIMESTAMP NOT NULL,
     BookingEnd TIMESTAMP NOT NULL,
-    Passanger INT CHECK (Passanger > 0),
+    Passenger INT CHECK (Passenger > 0),
     Destination VARCHAR(100),
     Reason VARCHAR(200),
 
