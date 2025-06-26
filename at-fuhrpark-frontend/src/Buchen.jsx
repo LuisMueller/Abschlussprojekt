@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { BACKEND_URL, vehicles  } from './config.js'
-import vehicle1BMW from './assets/1erBMW.jpg'
-import vehicle3BMW from './assets/3erBMW.jpg'
-import vehicleVKlasse from './assets/VKlasse.jpg'
+import vehicle1BMW from './assets/1erBMW.png'
+import vehicle5BMW from './assets/5erBMW.png'
+import vehicleVKlasse from './assets/VKlasse.png'
 
 const vehicleimages = {
     1: vehicle1BMW,
-    2: vehicle3BMW,
+    2: vehicle5BMW,
     3: vehicleVKlasse
 
 }
@@ -39,15 +39,23 @@ function Buchen({ vehicleId, date, endDate, passengers, setClickedVehicleId }) {
         setClickedVehicleId(null)
     }
 
+    const vehicle = vehicles.find(v => v.id === vehicleId)
+
     const dateToString = date => {
         return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
     }
 
     return (
-        <form className="booking" onSubmit={buchen}>
-            <h2>Booking</h2>
+        <form className='booking' onSubmit={buchen}>
+            <h1>Booking</h1>
             <p>{dateToString(date)} to {dateToString(endDate)}</p>
             <p>{vehicles.filter(v => v.id === vehicleId).at(0).model}</p>
+            <p>Location: {vehicle.location}</p>
+            <p>Seats: {vehicle.seats}</p>
+            <p>Fuel consumption: {vehicle.verbrauch}</p>
+            <p>Power: {vehicle.leistung} </p>
+            <p>Boot capacity: {vehicle.kofferraumvolumen}</p>
+
             <div>
                 <p>Destination</p>
                 <input
@@ -62,15 +70,28 @@ function Buchen({ vehicleId, date, endDate, passengers, setClickedVehicleId }) {
                     onChange={e => setReason(e.target.value)}
                 />
             </div>
-            <div>
+            <div className='booking-img-container'>
                 <img
-                    src={vehicleimages[vehicles.id]}
-                    alt={vehicles.model}
-                    className={'img'}
+                    src={vehicleimages[vehicle.id]}
+                    alt={vehicle.model}
+                    className= 'img'
                 />
             </div>
             <input
-                type="submit"
+                type='submit'
+                value='Book'
+                style={{
+                    position: 'relative',
+                    top: '-650px',
+                    width: '30%',
+                    height: '10%',
+                    margin: '2rem auto 3rem 0%',
+                    cursor: 'pointer',
+                    backgroundColor: 'rgb(255,121,43)',
+                    border: 'none',
+                    color: 'black',
+                    fontSize: '1.5rem'
+                }}
             />
         </form>
     );

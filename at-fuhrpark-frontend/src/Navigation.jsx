@@ -17,7 +17,18 @@ function Navigation(){
                 <a href="https://athamm.sharepoint.com/_layouts/15/sharepoint.aspx">Sharepoint</a>
             </div>
             <div>
-                <a href="https://www.alexanderthamm.com/de/">Support</a>
+                <a
+                  href={
+                    "https://outlook.office.com/mail/deeplink/compose?" +
+                    "to=atsd@alexanderthamm.com" +
+                    "&subject=IT-Ticket%20Anfrage%20ATFuhrpark" +
+                    "&body=Bitte%20beschreibe%20dein%20Problem..."
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Support
+                </a>
             </div>
         </nav>
     )

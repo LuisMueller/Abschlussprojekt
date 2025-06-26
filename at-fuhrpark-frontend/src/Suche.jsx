@@ -67,7 +67,7 @@ function Suche(){
                 </div>
                 <input
                     type="submit"
-                    value={"Suchen"}
+                    value={"Search"}
                 />
             </form>
             <Vehicles

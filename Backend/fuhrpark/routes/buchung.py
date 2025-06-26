@@ -6,6 +6,7 @@ from fuhrpark.crud import buche_fahrzeug, get_all_buchungen, get_filtered_buchun
 from typing import List
 from fastapi import Query
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
 # from fuhrpark.crud import get_all_buchungen
 
@@ -22,7 +23,9 @@ def buchung_absenden(buchung: BuchungRequest):
         user_id=buchung.user_id,
         vehicle_id=buchung.vehicle_id,
         start=buchung.start,
-        end=buchung.end
+        end=buchung.end,
+        destination=buchung.destination,
+        reason=buchung.reason
     )
 
     # Wenn es kein Erfolg war, wirf eine HTTP-Fehlermeldung mit dem Text

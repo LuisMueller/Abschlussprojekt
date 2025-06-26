@@ -69,8 +69,8 @@ main {
 
 .vehicles .item img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 80%;
+    height: 60%;
     object-fit: contain;
     border-radius: 4px;
     margin-bottom: 12px;
@@ -142,11 +142,10 @@ main {
 }
 .modal img {
     display: block;
-    width: 60%;
-    height: 60%;
+    width: 50%;
     max-width: 700px;
     border-radius: 8px;
-    margin: 2rem auto 3rem 35%;
+    margin: 2rem auto 3rem 40%;
     position: relative;
     top: -450px;
 }
@@ -165,19 +164,6 @@ main {
 }
 .modal input[type="submit"]:hover {
     background-color: #e06f00;
-}
-.booking-submit {
-  /* Nur so breit, dass es in dein Pop-up passt */
-  width: 150px;            /* z. B. 150px Breite */
-  padding: 0.75rem;
-  background-color: rgb(255,121,43);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  /* Rechtsbündig im Container */
-  align-self: flex-end;
 }
 
 .buchungs-liste {
@@ -198,20 +184,13 @@ main {
     border-bottom: 1px solid rgba(255,121,43,0.3);
 }
 .hero-background {
-  /* Bild full-screen */
   background: url('./assets/Background.jpeg') center/cover no-repeat;
-
-  /* fix an Viewport heften */
-  position: fixed;   /* oder: absolute; */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-
-  /* hinter alle anderen Elemente */
   z-index: -1;
-
-  /* Overlay falls du es weiterhin möchtest */
 }
 .hero-background::before {
   content: '';

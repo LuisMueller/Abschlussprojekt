@@ -6,7 +6,7 @@ dotenv_path = os.path.join(os.path.dirname(__file__), "../../properties.env")
 load_dotenv(dotenv_path)
 load_dotenv("properties.env")
 
-def buche_fahrzeug(user_id, vehicle_id, start, end):
+def buche_fahrzeug(user_id, vehicle_id, start, end, destination, reason):
     if start >= end:
         return False, "Startzeitpunkt muss vor dem Endzeitpunkt liegen"
     conn = None
@@ -56,13 +56,12 @@ def buche_fahrzeug(user_id, vehicle_id, start, end):
             start,
             end,
             1,  # Standard: 1 Passagier
-            "Ziel wird später ergänzt",
-            "Grund wird später ergänzt",
+            destination,
+            reason,
             user_id,
             vehicle_id
         ))
 
-        # 4. Kein Status-Update mehr nötig
         conn.commit()
 
         return True, "Buchung erfolgreich eingetragen."
@@ -76,7 +75,7 @@ def buche_fahrzeug(user_id, vehicle_id, start, end):
         if conn:
             conn.close()
 
-#neue GET all buchungen Fnktion
+#GET all buchungen Fnktion
 
 def get_all_buchungen():
     conn = None

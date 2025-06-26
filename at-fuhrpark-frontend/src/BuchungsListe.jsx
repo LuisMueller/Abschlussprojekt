@@ -21,13 +21,18 @@ function BuchungsListe() {
         method: 'GET',
       })
       const data = await res.json()
+
+          data.sort((b, a) =>
+      new Date(b.bookingstart) - new Date(a.bookingstart)
+    )
+
       setBookings(data)
     }
 
     fetchBookings()
   }, [])
       const handleDelete = async bookingId => {
-        if (!window.confirm('Soll diese Buchung wirklich gelöscht werden?')) return
+        if (!window.confirm('Are you sure you wanna Delete the booking?')) return
 
         try {
           const res = await fetch(`${BACKEND_URL}/buchung/${bookingId}`, {
@@ -35,12 +40,12 @@ function BuchungsListe() {
           })
           if (!res.ok) {
             const err = await res.json()
-            alert(err.detail || 'Löschen fehlgeschlagen')
+            alert(err.detail || 'Failed to Delete')
             return
           }
           setBookings(prev => prev.filter(b => b.booking_id !== bookingId))
         } catch (e) {
-          alert('Fehler beim Löschen: ' + e.message)
+          alert('Delete Error: ' + e.message)
         }
       }
 
@@ -50,7 +55,7 @@ function BuchungsListe() {
 
 return (
     <div className="buchungs-liste">
-      <h2>Aktuelle &amp; kommende Buchungen</h2>
+      <h2>Current &amp; Upcoming Bookings</h2>
       <ul>
         {bookings.map(b => {
           const vehicle = vehicles.find(v => v.id === b.vehicle_id)
@@ -60,8 +65,10 @@ return (
               className="buchungs-item"
               style={{
                 display: 'flex',
+                marginLeft: '10px',
                 justifyContent: 'space-between',
                 alignItems: 'center'
+
               }}
             >
               <div>
@@ -79,7 +86,12 @@ return (
 
               <button
                 onClick={() => handleDelete(b.booking_id)}
-                style={{ marginLeft: '1rem', marginRight: '33px', borderRadius: '8px', border: '1px solid rgb(255, 121, 43)'}}
+                style={{
+                  marginLeft: '1rem',
+                  marginRight: '33px',
+                  borderRadius: '8px',
+                  border: '1px solid rgb(255, 121, 43)'
+              }}
               >
                 Löschen
               </button>

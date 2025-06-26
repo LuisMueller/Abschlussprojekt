@@ -7,6 +7,8 @@ class BuchungRequest(BaseModel):
     vehicle_id: int
     start: datetime
     end: datetime
+    destination: str
+    reason: str
 
 class BuchungResponse(BaseModel):
     success: bool

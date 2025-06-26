@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { vehicles } from './config.js'
-import vehicle1BMW from './assets/1erBMW.jpg'
-import vehicle3BMW from './assets/3erBMW.jpg'
-import vehicleVKlasse from './assets/VKlasse.jpg'
+import vehicle1BMW from './assets/1erBMW.png'
+import vehicle5BMW from './assets/5erBMW.png'
+import vehicleVKlasse from './assets/VKlasse.png'
 
 const vehicleimages = {
     1: vehicle1BMW,
-    2: vehicle3BMW,
+    2: vehicle5BMW,
     3: vehicleVKlasse
 
 }
@@ -33,7 +33,7 @@ function Vehicles ({ unavailableVehicleIds, setClickedVehicleId }) {
                     />
                     <p>Seats: {vehicle.seats}</p>
                     <p>Location: {vehicle.location}</p>
-                    <p>Verbrauch: {vehicle.verbrauch}</p>
+                    <p>Fuel consumption: {vehicle.verbrauch}</p>
 
                     <button onClick={_ => onClickVehicle(vehicle)} className={'bookbtn'}>Book</button>
                 </div>
